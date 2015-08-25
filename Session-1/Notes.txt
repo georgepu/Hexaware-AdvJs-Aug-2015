@@ -1,0 +1,37 @@
+JavaScript
+==========
+
+Category-1
+
+Procedural
+Object Oriented
+Functional 
+    - Functions are first class citizens (aka functions are data)
+    
+Category - 2
+static 
+dynamic 
+
+Category - 3
+loosely typed
+strongly typed ( safety net offered by the compiler)
+
+
+function int add(int x, int y){
+    return x + y;
+}
+
+function add(x,y){
+    return x + y;
+}
+
+add(10,20)
+add("10", "20")
+add("abc", 10)
+add([10,20], [30,40])
+add(f1, f2)
+add(10)
+add()
+add(10,20,30,40,50)
+
+
