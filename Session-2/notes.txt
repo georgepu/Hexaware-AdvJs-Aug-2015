@@ -1,0 +1,13 @@
+1. As a function => this -> window
+2. As a method of an object => this -> object
+3. Using the call method of the function => this -> passed as a parameter
+4. Using the apply method of the function => this -> passed as a parameter
+
+
+
+sum(10,20,30,40,50)
+    => 10 + sum(20,30,40,50)
+            => 20 + sum(30,40,50)
+                    => 30 + sum(40,50)
+                            => 40 + sum(50)
+                                    => 50
