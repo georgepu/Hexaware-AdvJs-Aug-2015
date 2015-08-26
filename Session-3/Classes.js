@@ -28,3 +28,27 @@ when the calculate() method is invoked, the salary is calculated and populated i
     gross = basic + hra + da;
     salary = gross - tax
 
+function SalaryCalculator(defaults){
+    defaults = defaults || {};
+    this.basic = defaults.basic || 0;
+    this.hra = defaults.hra || 0;
+    this.da = defaults.da || 0;
+    this.tax = defaults.tax || 0;
+    this.salary = 0;
+}
+Employee.prototype.calculate = function(){
+    var gross = this.basic + this.hra + this.da;
+    this.salary = gross * ((100-this.tax)/100);
+}
+
+
+
+var x = y || z
+
+if (y is truthy) return y else return z
+
+true, false
+truthy, falsy -> non boolean values that convert to a boolean equivalent when subjected to a boolean expression
+
+
+
