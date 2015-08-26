@@ -19,4 +19,18 @@ spinner.down() => -1
 The variable that is used to track the value should NOT be accessible from outside
 
 */
+function getSpinner(){
+    var count = 0;
+    function up(){
+        return ++count;
+    }
+    function down(){
+        return --count;
+    }
+    return {
+        up : up,
+        down : down
+    }
+}
+
 
