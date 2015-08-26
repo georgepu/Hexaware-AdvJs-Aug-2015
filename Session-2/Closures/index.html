@@ -3,9 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Click Tracker</title>
+
+    <script>
+        //closures - private scope (as in OO languages)
+
+        (function myApp(){
+            var count = 0;
+            function trackClick(){
+                ++count;
+                document.getElementById("divMessage").innerHTML = count;
+            }
+            function init(){
+                document.getElementById("btnTrack").addEventListener("click", trackClick);
+            }
+            window.addEventListener("DOMContentLoaded", init);
+        })();
+        //myApp();
+    </script>
 </head>
 <body>
-    <input type="button" value="Track" id="btnTrack">
-    <div id="divMessage"></div>
+    <input type="button" value="Track" id="btnTrack" >
+    <div id="divMessage">[Display Click Counts]</div>
 </body>
 </html>
