@@ -36,20 +36,21 @@
             };
             this.set = function(attrName, value){
                 data[attrName] = value;
-                var listenerFn = eventHandlers[attrName];
-                if (typeof listenerFn === 'function')
-                    listenerFn();
+                eventHandlers[attrName].forEach(function(listenerFn){
+                    if (typeof listenerFn === 'function')
+                        listenerFn();
+                });
             };
 
             var eventHandlers = {
-                basic : null,
-                hra : null,
-                da : null,
-                tax : null,
-                salary : null
+                basic : [],
+                hra : [],
+                da : [],
+                tax : [],
+                salary : []
             };
             this.addListener = function(attrName, listenerFn){
-                eventHandlers[attrName] = listenerFn;
+                eventHandlers[attrName].push( listenerFn );
             };
         }
         SalaryCalculator.prototype.calculate = function(){
