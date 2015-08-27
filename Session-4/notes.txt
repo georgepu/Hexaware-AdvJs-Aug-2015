@@ -1,0 +1,10 @@
+Angular.js
+    - Framework for building RIA / SPA 
+    
+CWA (Classical Web Applications)
+
+RIA
+    - Desktop apps on the browser
+    
+Challenges
+    - How to build the UI layer such that it is testable, managable and easy to change
