@@ -1,1 +1,26 @@
-"Scope" object
+Building Blocks of Angular
+
+1. module 
+    - a logical container of application components
+    - DI Container
+
+2. "Scope" object
+    - Detects model changes and emits events
+    
+3. Controller
+    - A function where you coordinate user actions by configuring the scope object
+    
+4. Directive 
+    - Connect DOM with Scope
+    
+5. Filter
+    - A function used to transform the data for presentation
+    
+6. Factory
+7. Service
+8. Value
+9. Provider
+10. Constant
+
+2,3,4,5 -> encapsulate user interaction logic
+6,7,8,9,10 -> encapsulate non user-interaction logic

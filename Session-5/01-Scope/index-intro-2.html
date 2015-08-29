@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scope Demo</title>
+    <script src="angular.js"></script>
+    <script src="jquery-1.11.3.js"></script>
+    <script>
+        var greeter = {
+            name : '',
+            greetMsg : '',
+            greet : function(){
+                this.greetMsg = 'Hi ' + this.name + ", Have a nice day!";
+            }
+        };
+
+        $(function(){
+            angular.bootstrap(document.body, []);
+            window.scope = angular.element(document.body).scope();
+
+            //setup
+            scope.greeter = greeter;
+
+            $("*[app-model]").each(function(index, element){
+                var $element = $(element);
+                var model = $element.attr("app-model");
+                $element.change(function(){
+                    var self = this;
+                    scope.$apply(function(){
+                        var expr = model + ' = ' + self.value;
+                        scope.$eval(expr);
+                    });
+                });
+                scope.$watch(model, function(newValue, oldValue){
+                   $element.val(newValue);
+                });
+            });
+
+            $("*[app-click]").each(function(index, element){
+                var $element = $(element);
+                var expr = $element.attr("app-click");
+                $element.click(function(){
+                    scope.$apply(function(){
+                        scope.$eval(expr);
+                    });
+                });
+            });
+
+            $("*[app-bind]").each(function(index, element){
+               var $element = $(element);
+               var expr = $element.attr("app-bind");
+               scope.$watch(expr, function(newValue, oldValue){
+                   $element.html(newValue);
+               });
+           });
+        });
+    </script>
+</head>
+<body>
+    <label for="">Name :</label>
+    <input type="text" name="" id="txtName" app-model="greeter.name">
+    <input type="button" value="Greet" id="btnGreet" app-click="greeter.greet()">
+    <div id="divMessage" app-bind="greeter.greetMsg"></div>
+</body>
+</html>

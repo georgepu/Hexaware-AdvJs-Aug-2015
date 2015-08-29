@@ -47,42 +47,56 @@
            window.calculator = new SalaryCalculator();
             /*Reacting to User Interaction Events - UI -> Model*/
             $("#txtBasic").change(function(){
-                calculator.set('basic', $("#txtBasic").val().toInt());
+                var self = this;
+                scope.$apply(function(){
+                    scope.calculator.basic =  self.value.toInt();
+                });
             });
 
             $("#txtHra").change(function(){
-                calculator.set('hra', $("#txtHra").val().toInt());
+                var self = this;
+                scope.$apply(function(){
+                    scope.calculator.hra =  self.value.toInt();
+                });
             });
 
             $("#txtDa").change(function(){
-                calculator.set('da', $("#txtDa").val().toInt());
+                var self = this;
+                scope.$apply(function(){
+                    scope.calculator.da =  self.value.toInt();
+                });
             });
 
             $("#rangeTax").change(function(){
-                calculator.set('tax', $("#rangeTax").val().toInt());
+                var self = this;
+                scope.$apply(function(){
+                    scope.calculator.tax =  self.value.toInt();
+                });
             });
 
            $("#btnCalculate").click(function(){
-                calculator.calculate();
+               scope.$apply(function(){
+                    scope.calculator.calculate();
+               });
            });
 
            /*Reacting to Model Changes - Model -> UI*/
-           calculator.addListener('salary', function(){
-               $("#divResult").html(calculator.get('salary'));
+           scope.$watch('calculator.salary', function(){
+               $("#divResult").html(scope.calculator.salary);
            });
 
-           calculator.addListener('basic', function(){
-               $("#txtBasic").val(calculator.get('basic'));
+           scope.$watch('calculator.basic', function(){
+               $("#txtBasic").val(scope.calculator.basic);
            });
-           calculator.addListener('hra', function(){
-               $("#txtHra").val(calculator.get('hra'));
+           scope.$watch('calculator.hra', function(){
+               $("#txtHra").val(scope.calculator.hra);
            });
-           calculator.addListener('da', function(){
-               $("#txtDa").val(calculator.get('da'));
+           scope.$watch('calculator.da', function(){
+               $("#txtDa").val(scope.calculator.da);
            });
-           calculator.addListener('tax', function(){
-               $("#rangeTax").val(calculator.get('tax'));
-               $("#spanTax").html(calculator.get('tax'));
+           scope.$watch('calculator.tax', function(){
+               $("#rangeTax").val(scope.calculator.tax);
+               $("#spanTax").html(scope.calculator.tax);
            });
         });
     </script>
