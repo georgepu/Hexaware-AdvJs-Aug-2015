@@ -17,7 +17,9 @@
         li{
             cursor: pointer;
         }
-
+        .stats, .search, .sort, .list{
+            margin-bottom: 10px;
+        }
     </style>
     <script>
     /*
@@ -28,8 +30,8 @@
     3. Toggle the closed status of the bug - done
     4. Remove closed bugs - done
     5. Display statistics (# of closed bugs / total # of bugs) - done
-    6. Search for bugs
-    7. Sort the bugs
+    6. Search for bugs - done
+    7. Sort the bugs - use orderBy filter
     8. Improvise how the bugs are displayed
     9. Persist the bugs in the storage
     10. Display the createdDt of the bugs
@@ -49,6 +51,8 @@
                 { name : "Object reference not set to an instance of an object", isClosed : false},
                 { name : "Server communication failure", isClosed : false},
                 { name : "Undefined is not a function", isClosed : false},
+                { name : "User authentication failure", isClosed : true},
+                { name : "Stack overflow error", isClosed : false}
             ];
             $scope.addNewBug = function(){
                 var newBug = {
@@ -86,15 +90,30 @@
                 /
                 <span ng-bind="bugs.length"></span>
             </div>
-            <div class="search"></div>
-            <div class="sort"></div>
+            <div class="search">
+                <label for="">Search :</label>
+                <input type="text" ng-model="searchBug.name">
+                <label for="">isClosed ? :</label>
+                <input type="checkbox" name="" id="" ng-model="searchBug.isClosed">
+                <input type="button" value="Show All" ng-click="searchBug.isClosed=undefined">
+            </div>
+            <div class="sort">
+                <label for="">Order By :</label>
+                <input type="text">
+                <label for="">Descending ?:</label>
+                <input type="checkbox">
+            </div>
             <div class="list">
                 <label for="">Bug Title :</label>
                 <input type="text" ng-model="newBugName">
                 <input type="button" value="Add Bug" ng-click="addNewBug()">
                 <input type="button" value="Remove Closed" ng-click="removeClosed()">
                 <ol>
-                    <li ng-repeat="bug in bugs" ng-click="toggle(bug)" ng-class="{closed : bug.isClosed}">{{bug}}</li>
+                    <li
+                        ng-repeat="bug in bugs | filter:searchBug"
+                        ng-click="toggle(bug)"
+                        ng-class="{closed : bug.isClosed}"
+                    >{{bug.name}}</li>
                 </ol>
             </div>
         </div>
