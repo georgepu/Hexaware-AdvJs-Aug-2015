@@ -20,6 +20,12 @@
         .stats, .search, .sort, .list{
             margin-bottom: 10px;
         }
+        .timespan{
+            font-size: 12pt;
+            color : grey;
+            font-weight: bold;
+            font-style: italic;
+        }
     </style>
     <script>
     /*
@@ -33,7 +39,7 @@
     6. Search for bugs - done
     7. Sort the bugs - done - use ng-options to create a sort by drop down list box
     8. Improvise how the bugs are displayed - done
-    9. Persist the bugs in the storage
+    9. Persist the bugs in the storage - done
         window.localStorage
             - key/value store
             - both key & value should be strings
@@ -44,14 +50,16 @@
                 * key(index) // => key at index
                 * clear()
                 * length
-    10. Display the createdDt of the bugs
+    10. Display the createdDt of the bugs - done
     11. Persist the bugs in the server
     12. Categorize the bugs
     13. View the bugs belong to one particular category (routing)
     */
     </script>
+    <script src="moment.js"></script>
+    <script src="utils.js"></script>
     <script>
-        var bugTrackerApp = angular.module("bugTrackerApp", []);
+        var bugTrackerApp = angular.module("bugTrackerApp", ["utils"]);
         bugTrackerApp.run(function($rootScope){
            //console.log("$rootScope = ", $rootScope);
         });
@@ -66,14 +74,13 @@
         });*/
 
         //factory function
-
-
         bugTrackerApp.factory("Bug", function(){
             console.log("Bug - arguments = ", arguments);
             function Bug(defaults){
                 defaults = defaults || {};
                 this.name = defaults.name || '';
                 this.isClosed = defaults.isClosed || false;
+                this.createdAt = defaults.createdAt || new Date();
             }
             Bug.prototype.toggle = function(){
                 this.isClosed = !this.isClosed;
@@ -112,7 +119,6 @@
         });
 
         bugTrackerApp.controller("bugsController", function($scope, Bug, bugStorage){
-            console.log("arguments = ", arguments);
             $scope.bugs = bugStorage.getAll();
             $scope.addNewBug = function(){
                 var newBug = new Bug({ name : $scope.newBugName });
@@ -133,15 +139,6 @@
             };
 
         });
-
-        bugTrackerApp.value("defaultTrimLength", 20);
-        bugTrackerApp.filter('trimText', function(defaultTrimLength){
-            return function(data, trimLength){
-                trimLength = trimLength || defaultTrimLength;
-                return data.length < trimLength ? data : data.substr(0,trimLength) + "...";
-            }
-        });
-
         /*bugTrackerApp.filter("closedCount", function(){
             return function(bugs){
                 return bugs.reduce(function(result, bug){
@@ -156,6 +153,8 @@
                 return builtInFilter(bugs, {isClosed : true}).length;
             };
         });
+
+
     </script>
 </head>
 <body ng-app="bugTrackerApp">
@@ -194,7 +193,7 @@
                         ng-repeat="bug in bugs | filter:searchBug | orderBy:sortBugBy:sortBugOrderDesc"
                         ng-click="toggle(bug)"
                         ng-class="{closed : bug.isClosed}"
-                    >{{bug.name | trimText:20}}</li>
+                    >{{bug.name | trimText:20}} - <span class="timespan">{{bug.createdAt | toMoment}}</span></li>
                 </ol>
             </div>
         </div>
