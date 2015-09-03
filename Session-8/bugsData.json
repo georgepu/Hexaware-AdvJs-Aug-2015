@@ -1,0 +1,16 @@
+{
+  "bugs": [
+    {
+      "id": 3,
+      "name": "Server communications for data fails",
+      "isClosed": false,
+      "createdAt": "2015-08-27T00:57:04.086Z"
+    },
+    {
+      "name": "User authentication failure",
+      "isClosed": false,
+      "createdAt": "2015-09-03T01:01:56.337Z",
+      "id": 4
+    }
+  ]
+}
