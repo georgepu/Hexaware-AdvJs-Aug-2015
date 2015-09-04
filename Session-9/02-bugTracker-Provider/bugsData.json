@@ -1,5 +1,5 @@
 {
-  "bugs": [
+  "issues": [
     {
       "id": 3,
       "name": "Server communications for data fails",
@@ -11,6 +11,18 @@
       "isClosed": false,
       "createdAt": "2015-09-03T01:01:56.337Z",
       "id": 4
+    },
+    {
+      "id": 5,
+      "name": "Promises are not resolving",
+      "isClosed": false,
+      "createdAt": "2015-09-04T00:31:03.941Z"
+    },
+    {
+      "id": 6,
+      "name": "a new bug",
+      "isClosed": true,
+      "createdAt": "2015-09-04T00:34:48.381Z"
     }
   ]
 }
