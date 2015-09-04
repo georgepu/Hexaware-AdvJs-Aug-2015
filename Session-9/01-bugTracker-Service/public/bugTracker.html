@@ -89,21 +89,8 @@
             return Bug;
         });
 
-        bugTrackerApp.factory("bugService", function($http, Bug, $q){
+        /*bugTrackerApp.factory("bugService", function($http, Bug, $q){
             return {
-               /* getAll : function(){
-                    var deferred = $q.defer();
-
-                    var promise = $http.get("/bugs");
-                    promise.then(function(response){
-                        var result = response.data.map(function(bugData){
-                            return new Bug(bugData);
-                        });
-                        deferred.resolve(result);
-                    });
-
-                    return deferred.promise;
-                },*/
                  getAll : function(){
                     return $http.get("/bugs")
                         .then(function(response){
@@ -116,6 +103,21 @@
                 add : function(){},
                 remove : function(){}
             }
+        })
+*/
+
+        bugTrackerApp.service("bugService", function($http, Bug, $q){
+                this.getAll = function(){
+                    return $http.get("/bugs")
+                        .then(function(response){
+                            var result = response.data.map(function(bugData){
+                                return new Bug(bugData);
+                            });
+                            return result;
+                        });
+                };
+                this.add = function(){};
+                this.remove = function(){}
         })
 
         bugTrackerApp.controller("bugsController", function($scope, Bug, $http, bugService){

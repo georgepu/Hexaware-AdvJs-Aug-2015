@@ -60,8 +60,37 @@
     <script src="utils.js"></script>
     <script>
         var bugTrackerApp = angular.module("bugTrackerApp", ["utils"]);
-        bugTrackerApp.run(function($rootScope){
-           //console.log("$rootScope = ", $rootScope);
+
+
+
+        bugTrackerApp.provider("dataService", function(){
+            var _innerFactoryObjectName = 'innerFactory';
+
+            return {
+                name : 'outerFactory',
+                setInnerFactoryObjectName : function(name){
+                    _innerFactoryObjectName = name;
+                },
+                $get : function(){
+                    return {
+                        name : _innerFactoryObjectName
+                    }
+                }
+            };
+        });
+
+        //can only inject provider, constant
+        bugTrackerApp.config(function(dataServiceProvider){
+            console.log("application is configured");
+            console.log("dataServiceProvider = ", dataServiceProvider);
+            console.log("in config, setting the name of the inner factory object");
+            dataServiceProvider.setInnerFactoryObjectName("myInnerFactoryObject");
+        });
+
+        //can inject factory, service, value, constant
+        bugTrackerApp.run(function(dataService){
+            console.log("application is intialized");
+            console.log("dataService = ", dataService);
         });
 
        /* bugTrackerApp.value("Bug", function Bug(defaults){
@@ -89,21 +118,8 @@
             return Bug;
         });
 
-        bugTrackerApp.factory("bugService", function($http, Bug, $q){
+        /*bugTrackerApp.factory("bugService", function($http, Bug, $q){
             return {
-               /* getAll : function(){
-                    var deferred = $q.defer();
-
-                    var promise = $http.get("/bugs");
-                    promise.then(function(response){
-                        var result = response.data.map(function(bugData){
-                            return new Bug(bugData);
-                        });
-                        deferred.resolve(result);
-                    });
-
-                    return deferred.promise;
-                },*/
                  getAll : function(){
                     return $http.get("/bugs")
                         .then(function(response){
@@ -116,6 +132,21 @@
                 add : function(){},
                 remove : function(){}
             }
+        })
+*/
+
+        bugTrackerApp.service("bugService", function($http, Bug, $q){
+                this.getAll = function(){
+                    return $http.get("/bugs")
+                        .then(function(response){
+                            var result = response.data.map(function(bugData){
+                                return new Bug(bugData);
+                            });
+                            return result;
+                        });
+                };
+                this.add = function(){};
+                this.remove = function(){}
         })
 
         bugTrackerApp.controller("bugsController", function($scope, Bug, $http, bugService){
