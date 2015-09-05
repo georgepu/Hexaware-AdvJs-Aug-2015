@@ -1,0 +1,8 @@
+<h3>{{product.name}}</h3>
+<div style="color:red; font-weight:bold">{{product.cost | currency}}</div>
+<div>
+    {{product.desc}}
+</div>
+
+<br>
+<div ng-hide="product.units === 0">Hurry up! Only <span><i><b>{{product.units}}</b></i></span> units are left!!!</div>

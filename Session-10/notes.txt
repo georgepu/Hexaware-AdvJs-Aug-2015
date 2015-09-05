@@ -1,0 +1,32 @@
+1. package.json
+    manifest file 
+    
+dependencies
+    - client-side - bower
+    - server-side - npm
+    
+Jasmine - BDD 
+    - Constructs for organizing your test code (describe, it, matchers, spy)
+    
+Karma
+    - test runner
+    
+Protractor
+    - Wrapper on Selenium web driver
+    
+    
+    
+    
+products
+    - controllers
+        
+
+customers
+
+order
+
+reports
+
+
+
+    

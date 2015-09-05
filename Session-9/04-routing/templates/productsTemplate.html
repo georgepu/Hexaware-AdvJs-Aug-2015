@@ -1,0 +1,6 @@
+<h3>Products</h3>
+<div>{{products.length}} products will be displayed here</div>
+<br>
+<ol>
+    <li ng-repeat="product in products"><a href="#/products/{{product.id}}">{{product.name}}</a></li>
+</ol>
