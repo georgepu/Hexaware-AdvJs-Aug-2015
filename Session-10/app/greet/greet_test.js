@@ -1,5 +1,9 @@
 describe("Greeting", function(){
+   var controllerService = null;
    beforeEach(module("myApp.greet"));
+   beforeEach(inject(function($controller){
+       controllerService = $controller;
+   }));
 
    describe('greetController', function(){
        it("Should initialize the name to an empty string", inject(function($controller){
@@ -16,18 +20,32 @@ describe("Greeting", function(){
 
            expect(mockScope.greetMsg).toBe('');
        }));
-       it("Should populate greetMsg when greeted", inject(function($controller){
-
+       it("Should populate greetMsg when greeted", function(){
            var mockScope = {};
-           var expectedMessage = 'Hi Magesh, Have a nice day!';
+           var mockGreetService = {
+               greet : function(){}
+           };
+           spyOn(mockGreetService, 'greet').and.returnValue('test msg');
 
-           $controller('greetController', {$scope : mockScope});
-
+           controllerService('greetController', {$scope : mockScope, greetService : mockGreetService});
            mockScope.name = 'Magesh';
            mockScope.greet();
-           expect(mockScope.greetMsg).toBe(expectedMessage);
+           mockScope.greetMsg = 'test msg';
+       });
+   });
+
+   describe('greetService', function(){
+       it("Should greet the user", inject(function(greetService, $timeout){
+           var name = 'Magesh',
+               expectedMsg = 'Hi Magesh, Have a nice day!';
+           var _result = null;
+           greetService.greet(name).then(function(result){
+               _result = result;
+           });
+           $timeout.flush();
+           expect(_result).toBe(expectedMsg);
        }));
-   })
+   });
 
    describe('trimTextFilter', function(){
        it("Should return the orginal string for short strings", inject(function($filter){

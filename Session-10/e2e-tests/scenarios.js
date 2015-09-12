@@ -37,6 +37,21 @@ describe('my app', function() {
       expect(element.all(by.css('[ng-view] p')).first().getText()).
         toMatch(/partial for view 2/);
     });
-
   });
+
+  describe('gree', function(){
+      beforeEach(function(){
+          browser.get('index.html#/greet');
+      })
+      it("should greet the user", function(){
+          var txtBox = element(by.model("name"));
+          txtBox.sendKeys('Magesh');
+
+          var btnGreet = element(by.buttonText('Greet'));
+          btnGreet.click();
+
+          var divMessage = element(by.binding('greetMsg'));
+          expect(divMessage.getText()).toBe('Hi Magesh, Have a nice day!');
+      });
+  })
 });

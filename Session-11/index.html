@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .box{
+            border : 2px solid gray;
+            padding : 10px;
+            border-radius: 5px;
+        }
+    </style>
+    <script src="jquery.js"></script>
+    <script src="angular.js"></script>
+    <script>
+    angular
+        .module("myApp", [])
+        .run(function($rootScope){
+            $rootScope.IAm = "My Favourite App";
+        })
+        .controller("myController", function($scope){
+            $scope.IAm = "My Controller";
+            $scope.reset = function(){
+                console.log('reset invoked');
+                $scope.IAm = "My Controller";
+            };
+
+        })
+        .directive("whoAmI", function(){
+            return {
+                restrict : 'EA',
+                transclude : true,
+                scope : {
+                    name : "=",
+                    onclear : "&"
+                },
+                templateUrl : 'whoAmITemplate.html',
+                compile : function($element, $attr){
+                    console.log($element.html());
+                    return function(scope, $element, $attr){
+
+                    }
+                }
+
+            };
+        });
+
+    </script>
+</head>
+<body ng-app="myApp">
+  <div who-am-i>
+      <div>My own content right under the ngApp</div>
+  </div>
+   <div ng-controller="myController">
+        <input type="button" value="Transform" ng-click="IAm = 'A New Controller'">
+        <div who-am-i name="IAm" onclear="reset()">
+            <div>My own content right under the controller</div>
+        </div>
+   </div>
+
+</body>
+</html>
+
+
+<!--
+element
+attrbute
+classname
+comment
+-->
